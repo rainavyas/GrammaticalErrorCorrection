@@ -41,7 +41,7 @@ def train(train_loader, model, output_to_loss, optimizer, epoch, device, print_f
         optimizer.step()
 
         # record loss
-        losses.update(loss.item(), id.size(0))
+        losses.update(loss.item(), inp_id.size(0))
 
         if i % print_freq == 0:
             print('Epoch: [{0}][{1}/{2}]\t'
