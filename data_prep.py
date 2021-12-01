@@ -38,6 +38,8 @@ class DataTensorLoader():
                 original_sentences.append(original_id2text[id])
             except:
                 print(f'{i}) {id} in corrected but not in original')
+        print(len(original_sentences))
+        print(len(corrected_sentences))
         assert len(original_sentences) == len(corrected_sentences), "Input and Output samples misaligned"
 
         # prep input tensors - original
