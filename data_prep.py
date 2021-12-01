@@ -17,13 +17,27 @@ class DataTensorLoader():
         with open(data_path, 'r') as f:
             lines = f.readlines()
         lines = [l.rstrip('\n') for l in lines]
-        lines = [' '.join(l.split()[1:]) for l in lines]
-        return lines
+        id2text = {}
+        for l in lines:
+            parts = l.split()
+            id = parts[0]
+            text = ' '.join(parts)
+            id2text[id] = text
+        return id2text
 
     def _get_data(self, original_data_path, corrected_data_path):
 
-        original_sentences = self._get_sentences(original_data_path)
-        corrected_sentences = self._get_sentences(corrected_data_path)
+        original_id2text = self._get_sentences(original_data_path)
+        corrected_id2text = self._get_sentences(corrected_data_path)
+
+        original_sentences = []
+        corrected_sentences = []
+        for id, text in corrected_id2text.items():
+            try:
+                corrected_sentences.append(text)
+                original_sentences.append(original_id2text[id])
+            except:
+                print(f'{id} in corrected but not in original')
         assert len(original_sentences) == len(corrected_sentences), "Input and Output samples misaligned"
 
         # prep input tensors - original
