@@ -1,0 +1,48 @@
+'''
+Prepare the CLC FCE-public dataset as tokenized torch
+(input and output) ids tensor and attention mask
+'''
+
+import torch
+import torch.nn as nn
+from transformers import T5Tokenizer
+
+
+class DataTensorLoader():
+    def __init__(self):
+        pass
+    
+    def _get_sentences(self, data_path):
+
+        with open(data_path, 'r') as f:
+            lines = f.readlines()
+        lines = [l.rstrip('\n') for l in lines]
+        lines = [' '.join(l.split()[1:]) for l in lines]
+        return lines
+
+    def _get_data(self, original_data_path, corrected_data_path):
+
+        original_sentences = self._get_sentences(original_data_path)
+        corrected_sentences = self._get_sentences(corrected_data_path)
+        assert len(original_sentences) == len(corrected_sentences), "Input and Output samples misaligned"
+
+        # prep input tensors - original
+        tokenizer = T5Tokenizer.from_pretrained("t5-base")
+        encoded_inputs = tokenizer(original_sentences, padding=True, truncation=True, return_tensors="pt")
+        input_ids = encoded_inputs['input_ids']
+        input_mask = encoded_inputs['attention_mask']
+
+        # prep output tensors - corrected -> use '-100' for masked positions
+        encoded_inputs = tokenizer(corrected_sentences, padding=True, truncation=True, return_tensors="pt")
+        output_ids = encoded_inputs['input_ids']
+        mask = encoded_inputs['attention_mask']
+        output_ids[mask==0] = -100
+
+        return input_ids, input_mask, output_ids
+
+
+    def get_train(self, original_data_path, corrected_data_path):
+        return self._get_data(original_data_path, corrected_data_path)
+
+    def get_test(self, original_data_path, corrected_data_path):
+        return self._get_data(original_data_path, corrected_data_path)
