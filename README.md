@@ -18,6 +18,8 @@ pip install torch, torchvision
 
 pip install transformers
 
+pip install sentencepiece
+
 
 # Training
 
