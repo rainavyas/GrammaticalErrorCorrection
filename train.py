@@ -82,7 +82,7 @@ if __name__ == "__main__":
     train_dl = DataLoader(train_ds, batch_size=args.B, shuffle=True)
 
     # Initialise model
-    model = T5ForConditionalGeneration.from_pretrained("t5-small")
+    model = T5ForConditionalGeneration.from_pretrained("t5-base")
     model.to(device)
 
     # Optimizer

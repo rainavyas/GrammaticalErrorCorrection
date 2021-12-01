@@ -9,7 +9,7 @@ from transformers import T5Tokenizer
 
 
 class DataTensorLoader():
-    def __init__(self, max_len=20):
+    def __init__(self, max_len=200):
         self.max_len = max_len
     
     def _get_sentences(self, data_path):
