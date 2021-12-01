@@ -21,6 +21,8 @@ pip install transformers
 
 Fork the repository (and clone).
 
+Download the data
+
 Run the _train.py_ scripts with desired arguments in your terminal. For example,:
 
 _python ./train.py input_data_path corrected_data_path my_trained_model.th --B=8 --lr=0.00001 --epochs=2 --seed=1_
