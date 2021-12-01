@@ -23,7 +23,7 @@ pip install transformers
 
 Fork the repository (and clone).
 
-Download the data
+Download the data.
 
 Run the _train.py_ scripts with desired arguments in your terminal. For example,:
 
