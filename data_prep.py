@@ -9,8 +9,8 @@ from transformers import T5Tokenizer
 
 
 class DataTensorLoader():
-    def __init__(self):
-        pass
+    def __init__(self, max_len=400):
+        self.max_len = max_len
     
     def _get_sentences(self, data_path):
 
@@ -42,12 +42,12 @@ class DataTensorLoader():
 
         # prep input tensors - original
         tokenizer = T5Tokenizer.from_pretrained("t5-base")
-        encoded_inputs = tokenizer(original_sentences, padding=True, truncation=True, return_tensors="pt")
+        encoded_inputs = tokenizer(original_sentences, max_length=self.max_len, padding='max_length', truncation=True, return_tensors="pt")
         input_ids = encoded_inputs['input_ids']
         input_mask = encoded_inputs['attention_mask']
 
         # prep output tensors - corrected -> use '-100' for masked positions
-        encoded_inputs = tokenizer(corrected_sentences, padding=True, truncation=True, return_tensors="pt")
+        encoded_inputs = tokenizer(corrected_sentences, max_length=self.max_len, padding='max_length', truncation=True, return_tensors="pt")
         output_ids = encoded_inputs['input_ids']
         mask = encoded_inputs['attention_mask']
         output_ids[mask==0] = -100
