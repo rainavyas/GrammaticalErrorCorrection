@@ -25,17 +25,19 @@ class DataTensorLoader():
             id2text[id] = text
         return id2text
 
-    def _get_data(self, original_data_path, corrected_data_path):
+    def _get_data(self, original_data_path, corrected_data_path, return_identifier=False):
 
         original_id2text = self._get_sentences(original_data_path)
         corrected_id2text = self._get_sentences(corrected_data_path)
 
         original_sentences = []
         corrected_sentences = []
+        identifiers = []
         for i, (id, text) in enumerate(corrected_id2text.items()):
             try:
                 original_sentences.append(original_id2text[id])
                 corrected_sentences.append(text)
+                identifiers.append(id)
             except:
                 print(f'{i}) {id} in corrected but not in original')
         assert len(original_sentences) == len(corrected_sentences), "Input and Output samples misaligned"
@@ -52,11 +54,14 @@ class DataTensorLoader():
         mask = encoded_inputs['attention_mask']
         output_ids[mask==0] = -100
 
-        return input_ids, input_mask, output_ids
+        if not return_identifier:
+            return input_ids, input_mask, output_ids
+        else:
+            return input_ids, input_mask, output_ids, identifiers
 
 
     def get_train(self, original_data_path, corrected_data_path):
         return self._get_data(original_data_path, corrected_data_path)
 
     def get_test(self, original_data_path, corrected_data_path):
-        return self._get_data(original_data_path, corrected_data_path)
+        return self._get_data(original_data_path, corrected_data_path, return_identifier=True)
