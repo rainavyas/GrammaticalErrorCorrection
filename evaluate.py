@@ -42,10 +42,14 @@ if __name__ == "__main__":
     model.load_state_dict(torch.load(args.MODEL, map_location=torch.device('cpu')))
     model.eval()
 
-    # Generate prediction ids
-    prediction_ids = model.generate(
-        input_ids = input_ids,
-        attention_mask = input_mask,
+    # Decode ids into sentences
+    tokenizer = T5Tokenizer.from_pretrained("t5-base")
+    prediction_sentences = []
+    for i, (inp_id, mask) in enumerate(zip(input_ids, input_mask)):
+        # Generate prediction ids
+        prediction_ids = model.generate(
+        input_ids = inp_id,
+        attention_mask = mask,
         num_beams = args.num_beams,
         do_sample = False,
         max_length = 60,
@@ -54,14 +58,8 @@ if __name__ == "__main__":
         use_cache = True,
         num_return_sequences = 1
     )
-    print("Generated prediction ids")
-
-    # Decode ids into sentences
-    tokenizer = T5Tokenizer.from_pretrained("t5-base")
-    prediction_sentences = []
-    for i, ids in enumerate(prediction_ids):
         print(f'Decoding {i}/{len(prediction_ids)}')
-        prediction_sentences.append(tokenizer.decode(ids, skip_special_tokens=True, clean_up_tokenization_spaces=True))
+        prediction_sentences.append(tokenizer.decode(prediction_ids, skip_special_tokens=True, clean_up_tokenization_spaces=True))
     assert len(prediction_sentences) == len(identifiers), "Number of ids don't match number of predictions"
 
     # Save predictions
