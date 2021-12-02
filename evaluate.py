@@ -58,7 +58,7 @@ if __name__ == "__main__":
         use_cache = True,
         num_return_sequences = 1
     )
-        print(f'Decoding {i}/{len(prediction_ids)}')
+        print(f'Decoding {i}/{len(input_ids)}')
         prediction_sentences.append(tokenizer.decode(prediction_ids.squeeze(), skip_special_tokens=True, clean_up_tokenization_spaces=True))
     assert len(prediction_sentences) == len(identifiers), "Number of ids don't match number of predictions"
 
