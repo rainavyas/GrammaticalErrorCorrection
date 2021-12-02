@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
     # Load trained model
     model = T5ForConditionalGeneration.from_pretrained("t5-base")
-    model.load_state_dict(torch.load(args.model, map_location=torch.device('cpu')))
+    model.load_state_dict(torch.load(args.MODEL, map_location=torch.device('cpu')))
     model.eval()
 
     # Generate prediction ids
