@@ -31,7 +31,7 @@ if __name__ == "__main__":
     dataloader = DataTensorLoader()
     input_ids, input_mask, _, identifiers = dataloader.get_test(args.INC, args.CORR)
     #temp
-    samples = 5
+    samples = 20
     input_ids = input_ids[:samples]
     input_mask = input_mask[:samples]
     identifiers = identifiers[:samples]
