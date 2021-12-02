@@ -7,6 +7,7 @@ import os
 import argparse
 import string
 from nltk.translate.bleu_score import sentence_bleu
+from nltk.translate.gleu_score import sentence_gleu
 
 def get_sentences_dict(data_path):
     with open(data_path, 'r') as f:
@@ -44,6 +45,15 @@ def batch_bleu_score(pred_sens, corr_sens):
         total_score += score
     return total_score/len(pred_sens)
 
+def batch_gleu_score(pred_sens, corr_sens):
+    total_score = 0
+    for pred, corr in zip(pred_sens, corr_sens):
+        candidate = pred.split()
+        reference = [corr.split()]
+        score = sentence_gleu(reference, candidate)
+        total_score += score
+    return total_score/len(pred_sens)
+
 if __name__ == "__main__":
 
     # Get command line arguments
@@ -65,4 +75,8 @@ if __name__ == "__main__":
 
     # Get BLEU score
     bleu = batch_bleu_score(pred_sens, corr_sens)
-    print(f'BELU Score: {bleu}')
+    print(f'BLEU Score: {bleu}')
+
+    # Get GLEU score
+    gleu = batch_gleu_score(pred_sens, corr_sens)
+    print(f'GLEU Score: {gleu}')
