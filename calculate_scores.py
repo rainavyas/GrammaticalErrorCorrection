@@ -31,14 +31,15 @@ def align_data(pred_dict, corr_dict):
             pred_sens.append(pred_dict[id])
             corr_sens.append(text)
         except:
-            print(f'{i}) {id} in corrected but not in predicted')
+            # print(f'{i}) {id} in corrected but not in predicted')
+            pass
     return pred_sens, corr_sens
 
 def batch_bleu_score(pred_sens, corr_sens):
     total_score = 0
     for pred, corr in zip(pred_sens, corr_sens):
         candidate = pred.split()
-        reference = [corr.split]
+        reference = [corr.split()]
         score = sentence_bleu(reference, candidate)
         total_score += score
     return total_score/len(pred_sens)
