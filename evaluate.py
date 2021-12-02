@@ -7,7 +7,6 @@ from data_prep import DataTensorLoader
 import sys
 import os
 import argparse
-from tools import get_default_device
 from transformers import T5ForConditionalGeneration, T5Tokenizer
 import torch
 
