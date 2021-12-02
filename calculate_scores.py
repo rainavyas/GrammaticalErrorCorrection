@@ -6,8 +6,8 @@ import sys
 import os
 import argparse
 import string
-from nltk.translate.bleu_score import sentence_bleu
-from nltk.translate.gleu_score import sentence_gleu
+from nltk.translate.bleu_score import sentence_bleu, corpus_bleu
+from nltk.translate.gleu_score import sentence_gleu, corpus_gleu
 
 def get_sentences_dict(data_path):
     with open(data_path, 'r') as f:
@@ -54,6 +54,16 @@ def batch_gleu_score(pred_sens, corr_sens):
         total_score += score
     return total_score/len(pred_sens)
 
+def batch_corpus_bleu_score(pred_sens, corr_sens):
+    hypotheses = [p.split() for p in pred_sens]
+    references = [[c.split()] for c in corr_sens]
+    return corpus_bleu(references, hypotheses)
+
+def batch_corpus_gleu_score(pred_sens, corr_sens):
+    hypotheses = [p.split() for p in pred_sens]
+    references = [[c.split()] for c in corr_sens]
+    return corpus_gleu(references, hypotheses)
+
 if __name__ == "__main__":
 
     # Get command line arguments
@@ -75,8 +85,12 @@ if __name__ == "__main__":
 
     # Get BLEU score
     bleu = batch_bleu_score(pred_sens, corr_sens)
-    print(f'BLEU Score: {bleu}')
+    bleu_corpus = batch_corpus_bleu_score(pred_sens, corr_sens)
+    print(f'Sentence BLEU Score: {bleu}')
+    print(f'Corpus BLEU Score: {bleu_corpus}')
 
     # Get GLEU score
     gleu = batch_gleu_score(pred_sens, corr_sens)
-    print(f'GLEU Score: {gleu}')
+    gleu_corpus = batch_corpus_gleu_score(pred_sens, corr_sens)
+    print(f'Sentence GLEU Score: {gleu}')
+    print(f'Corpus GLEU Score: {gleu_corpus}')
