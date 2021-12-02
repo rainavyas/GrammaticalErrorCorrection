@@ -67,6 +67,6 @@ if __name__ == "__main__":
     # Save predictions
     with open(args.OUT, 'w') as f:
         for id, sentence in zip(identifiers, prediction_sentences):
-            f.write(f'{id} sentence\n')
+            f.write(f'{id} {sentence}\n')
 
 
