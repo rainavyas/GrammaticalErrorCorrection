@@ -30,6 +30,11 @@ if __name__ == "__main__":
     # Load the data as tensors
     dataloader = DataTensorLoader()
     input_ids, input_mask, _, identifiers = dataloader.get_test(args.INC, args.CORR)
+    #temp
+    samples = 5
+    input_ids = input_ids[:samples]
+    input_mask = input_mask[:samples]
+    identifiers = identifiers[:samples]
     print("Loaded data")
 
     # Load trained model
@@ -43,7 +48,7 @@ if __name__ == "__main__":
         attention_mask = input_mask,
         num_beams = args.num_beams,
         do_sample = False,
-        max_length = 80,
+        max_length = 60,
         length_penalty = 1.0,
         early_stopping = True,
         use_cache = True,
