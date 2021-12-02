@@ -48,8 +48,8 @@ if __name__ == "__main__":
     for i, (inp_id, mask) in enumerate(zip(input_ids, input_mask)):
         # Generate prediction ids
         prediction_ids = model.generate(
-        input_ids = inp_id,
-        attention_mask = mask,
+        input_ids = inp_id.unsqueeze(),
+        attention_mask = mask.unsqueeze(),
         num_beams = args.num_beams,
         do_sample = False,
         max_length = 60,
