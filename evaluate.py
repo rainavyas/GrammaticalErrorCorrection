@@ -30,11 +30,11 @@ if __name__ == "__main__":
     # Load the data as tensors
     dataloader = DataTensorLoader()
     input_ids, input_mask, _, identifiers = dataloader.get_test(args.INC, args.CORR)
-    #temp
-    samples = 20
-    input_ids = input_ids[:samples]
-    input_mask = input_mask[:samples]
-    identifiers = identifiers[:samples]
+    # #temp
+    # samples = 20
+    # input_ids = input_ids[:samples]
+    # input_mask = input_mask[:samples]
+    # identifiers = identifiers[:samples]
     print("Loaded data")
 
     # Load trained model
