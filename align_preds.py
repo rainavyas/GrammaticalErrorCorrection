@@ -48,12 +48,11 @@ def align_data(inc_dict, pred_dict, corr_dict):
     for i, (id, text) in enumerate(corr_dict.items()):
         try:
             pred_sens.append(pred_dict[id]+'\n')
-            inc_sens.append(inc_dict[id+'\n'])
+            inc_sens.append(inc_dict[id]+'\n')
             corr_sens.append(text+'\n')
         except:
             # print(f'{i}) {id} in corrected but not in predicted')
             pass
-    print(len(pred_sens), len(inc_sens))
     assert len(pred_sens) == len(inc_sens), "Mismatch in num items"
     return inc_sens, pred_sens, corr_sens
 
