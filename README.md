@@ -47,9 +47,12 @@ This tool used to evaluate the GEC model. The tool is [here](https://github.com/
 ## How to use the tool
 
 Assume you have three files with a sentence per line (generate using my align data script):
-file1.inc  .... original incorrect sentences
-file2.pred ... Model prediction sentences
-file3.corr ... True manual labels, reference sentences
+
+`file1.inc`  .... original incorrect sentences
+
+`file2.pred` ... Model prediction sentences
+
+`file3.corr` ... True manual labels, reference sentences
 
 There are two stages:
 
