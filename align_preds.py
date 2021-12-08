@@ -78,9 +78,12 @@ if __name__ == "__main__":
     inc_sens, pred_sens, corr_sens = align_data(inc_id2text, pred_id2text, corr_id2text)
 
     # Save to output files
-    with open(f'{args.BASE}.inc', 'w') as f:
+    filename = f'{args.BASE}.inc'
+    with open(filename, 'w') as f:
         f.writelines(inc_sens)
-    with open(f'{args.BASE}.pred', 'w') as f:
+    filename = f'{args.BASE}.pred'
+    with open(filename, 'w') as f:
         f.writelines(pred_sens)
-    with open(f'{args.BASE}.corr', 'w') as f:
+    filename = f'{args.BASE}.corr'
+    with open(filename, 'w') as f:
         f.writelines(corr_sens)
