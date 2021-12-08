@@ -53,6 +53,7 @@ def align_data(inc_dict, pred_dict, corr_dict):
         except:
             # print(f'{i}) {id} in corrected but not in predicted')
             pass
+    assert len(pred_sens) == len(inc_sens), "Mismatch in num items"
     return inc_sens, pred_sens, corr_sens
 
 if __name__ == "__main__":
