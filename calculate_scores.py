@@ -1,5 +1,6 @@
 '''
 Calulate Performance Metrics of GEC system from prediction files
+Uses unaligned files
 '''
 
 import sys
