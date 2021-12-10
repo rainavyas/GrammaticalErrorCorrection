@@ -21,7 +21,7 @@ class DataTensorLoader():
         for l in lines:
             parts = l.split()
             id = parts[0]
-            text = ' '.join(parts)
+            text = ' '.join(parts[1:])
             id2text[id] = text
         return id2text
 
