@@ -5,7 +5,7 @@ Train a Transformer-based seq2seq GEC model to correct grammatical errors in sen
 
 The aim is to peform the NLP sequence-to-sequence task of generating a grammatically correct version of an input sentence. This is achieved in this work using a Trasnformer based encoder-decoder architecture, specifically, a [T5 model](https://huggingface.co/transformers/model_doc/t5.html).
 
-[Cambridge Learner Corpus (CLC) data, FCE split](https://www.comp.nus.edu.sg/~nlp/conll14st.html) is used for training of this model.
+[FCE data](https://ilexir.co.uk/datasets/index.html) is used for training of this model.
 
 
 # Requirements
